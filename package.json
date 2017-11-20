@@ -1,0 +1,26 @@
+{
+  "name": "live-flickr-search",
+  "version": "1.0.0",
+  "description": "React based web application with live Flickr image search",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Michnet/live-flickr-search.git"
+  },
+  "keywords": [
+    "reactjs",
+    "live-search",
+    "js",
+    "html",
+    "css"
+  ],
+  "author": "Michał Mamiński",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Michnet/live-flickr-search/issues"
+  },
+  "homepage": "https://github.com/Michnet/live-flickr-search#readme"
+}
