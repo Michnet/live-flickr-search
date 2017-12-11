@@ -25,6 +25,55 @@ const galleryMachine = {
   }
 };
 
+class PhotoGallery extends React.Component {
+  render() {
+
+    let state = this.props.state;
+    let galleryState = state.gallery;
+
+    let noResults = state.items.length === 0;
+
+    let resultToRender = null;
+
+    if (galleryState === 'error') {
+      resultToRender = (<span className="ui-error">Uh oh, search failed.</span>);
+    } else if (noResults && state.query !== '' && galleryState === 'gallery') {
+      resultToRender = (<span className="ui-no-results">Empty result, type something else.</span>);
+    } else {
+      resultToRender = (state.items.map((item, i) =>
+        <img
+          src={item.media.m}
+          className="ui-item"
+          style={{ '--i': i }}
+          key={item.link}
+          onClick={() => this.props.onPhotoClick(item)}
+        />
+      ));
+    }
+
+    return (
+      <section className="ui-items" data-state={galleryState}>
+        {resultToRender}
+      </section>
+    );
+  }
+}
+
+class ZoomedPhoto extends React.Component {
+  render() {
+    if (this.props.state.gallery !== 'photo') return null;
+
+    return (
+      <section
+        className="ui-photo-detail"
+        onClick={this.props.onPhotoClick}>
+        <img src={this.props.state.photo.media.m} className="ui-photo" />
+      </section>
+    );
+  }
+}
+
+
 class App extends React.Component {
 
   constructor() {
@@ -64,7 +113,7 @@ class App extends React.Component {
 
   transition(action) {
     const currentGalleryState = this.state.gallery;
-    const nextGalleryState = galleryMachine[currentGalleryState][action.type];
+    const nextGalleryState = galleryMachine[currentGalleryState][action.type];    
 
     if (nextGalleryState) {
       const nextState = this.command(nextGalleryState, action);
@@ -137,12 +186,13 @@ class App extends React.Component {
 
     return (
       <form className="ui-form" onSubmit={e => this.handleSubmit(e)}>
+        <h3>Type to start searching from Flickr's photos...</h3>
         <input
           type="search"
           className="ui-input"
           value={this.state.query}
           onChange={e => this.handleChangeQuery(e.target.value)}
-          placeholder="Type to start searching from Flickr's photos..."
+          placeholder="type here..."
         />
         <div className="ui-buttons">
           {cancelButton}
@@ -150,45 +200,14 @@ class App extends React.Component {
       </form>
     );
   }
-  renderGallery(state) {
-    return (
-      <section className="ui-items" data-state={state}>
-        {state === 'error'
-          ? <span className="ui-error">Uh oh, search failed.</span>
-          : this.state.items.map((item, i) =>
-            <img
-              src={item.media.m}
-              className="ui-item"
-              style={{ '--i': i }}
-              key={item.link}
-              onClick={() => this.transition({
-                type: 'SELECT_PHOTO', item
-              })}
-            />
-          )
-        }
-      </section>
-    );
-  }
-  renderPhoto(state) {
-    if (state !== 'photo') return;
-
-    return (
-      <section
-        className="ui-photo-detail"
-        onClick={() => this.transition({ type: 'EXIT_PHOTO' })}>
-        <img src={this.state.photo.media.m} className="ui-photo" />
-      </section>
-    )
-  }
   render() {
     const galleryState = this.state.gallery;
 
     return (
       <div className="ui-app" data-state={galleryState}>
         {this.renderForm(galleryState)}
-        {this.renderGallery(galleryState)}
-        {this.renderPhoto(galleryState)}
+        <PhotoGallery state={this.state} onPhotoClick={(item) => this.transition({ type: 'SELECT_PHOTO', item })} />
+        <ZoomedPhoto state={this.state} onPhotoClick={() => this.transition({ type: 'EXIT_PHOTO' })} />
       </div>
     );
   }
