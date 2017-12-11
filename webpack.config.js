@@ -25,15 +25,23 @@ module.exports = {
                 }
             },
             {
+                test: /\.(png|svg|jpg|gif)$/,
+                use: ['file-loader']
+            },
+            {
                 test: /\.css$/,
                 use: ['style-loader', 'css-loader']
-            }]
+            }
+        ]
     },
     plugins: [
         new HtmlWebpackPlugin({
             title: "Live flickr search build on top of reactjs",
             template: path.resolve(__dirname, 'src/index-temp.html'),
             hash: true
-        })
+        }),
+        new CopyWebpackPlugin([{
+            from: "./src/static/favicon.png"
+        }])
     ]
 };
