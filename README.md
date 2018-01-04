@@ -4,9 +4,9 @@
 [![Build Status](https://travis-ci.org/Michnet/live-flickr-search.svg?branch=master)](https://travis-ci.org/Michnet/live-flickr-search)
 [![License MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Michnet/live-flickr-search/blob/master/LICENSE)
 
-React based web app with simple flickr search.
+React based web app with simple flickr search. Project made with help from this nice book [Fullstack React The Complete Guide to ReactJS and Friends](https://www.fullstackreact.com/)
 
-## [Click here to view Demo](https://michnet.github.io/live-flickr-search)
+## [Click here to view demo](https://michnet.github.io/live-flickr-search)
 
 ## Author
 
