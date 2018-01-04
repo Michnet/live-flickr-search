@@ -1,11 +1,12 @@
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin')
 const path = require('path');
 
 module.exports = {
     entry: './src/js/app.js',
     output: {
-        filename: './bundle.js',
+        filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist')
     },
     devServer: {
@@ -35,6 +36,7 @@ module.exports = {
         ]
     },
     plugins: [
+        new CleanWebpackPlugin(['dist']),
         new HtmlWebpackPlugin({
             title: "Live flickr search build on top of reactjs",
             template: path.resolve(__dirname, 'src/index-temp.html'),
