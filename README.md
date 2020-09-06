@@ -6,7 +6,7 @@
 
 React based web app with simple flickr search. Project made with help from this nice book [Fullstack React The Complete Guide to ReactJS and Friends](https://www.fullstackreact.com/)
 
-## [Click here to view demo](https://michnet.github.io/live-flickr-search)
+## [Click here to view demo](https://michalmaminski.github.io/live-flickr-search/)
 
 ## Author
 
